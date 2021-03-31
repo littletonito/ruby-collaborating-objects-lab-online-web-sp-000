@@ -8,6 +8,7 @@ class MP3Importer
   end
 
   def files
+    #a ||= b being equivalent to a = a || b 
     @files ||= Dir.glob("#{path}/*.mp3").collect{ |f| f.gsub("#{path}/", "") }
   end
 
