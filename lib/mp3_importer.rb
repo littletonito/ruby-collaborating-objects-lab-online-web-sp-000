@@ -1,8 +1,8 @@
 
+class MP3Importer
 
-
-
-
+  MP3Importer = []
+end
 
 
 
