@@ -1,40 +1,54 @@
-class Artist
-  @@all = []
 
-  attr_accessor :name, :songs
+class Artist
+
+  attr_accessor :name
+
+  @@all = []
 
   def initialize(name)
     @name = name
-    save
+    @@all << self
   end
+
+  # def save
+  #   @@all << self
+  # end
 
   def self.all
     @@all
   end
 
   def add_song(song)
+    # receives an instance of a Song and associates it belongs to this Artist instance.
     song.artist = self
   end
 
   def songs
-    Song.all.select {|song| song.artist == self}
+    # returns an Array of all songs that belong to this Artist instance.
+    # should get all existing Song instances from Song and select only the ones that are associated with this Artist instance.
+    Song.all.select do |song|
+      song.artist == self
+    end
   end
 
   def self.find_or_create_by_name(name)
-    self.find(name) ? self.find(name) : self.new(name) #if/else statement called TERNARY OPERATOR
+    # Find the artist instance that has that name or create one if it doesn't exist
+    if self.find(name)
+      self.find(name)
+    else
+      self.new(name)
+    end
   end
 
   def self.find(name)
     self.all.find {|artist| artist.name == name }
   end
 
-  def save
-    @@all << self
-  end
-
   def print_songs
-    songs.each {|song| puts song.name}
+    # outputs the names of all songs associated with this Artist instance.
+    songs.each do |song|
+      puts song.name
+    end
   end
-
 
 end
